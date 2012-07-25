@@ -117,8 +117,8 @@ def stun_test(sock, host, port, source_ip, source_port, send_data=""):
         count = 3
         while not recieved:
             log.debug("sendto %s" % str((host, port)))
-            sock.sendto(data,(host, port))
             try:
+                sock.sendto(data,(host, port))
                 buf, addr = sock.recvfrom(2048)
                 log.debug("recvfrom: %s" % str(addr))
                 recieved = True
@@ -177,6 +177,7 @@ def get_nat_type(s, source_ip, source_port, stun_host=None):
     log.debug("Do Test1")
     resp = False
     if stun_host:
+        host = stun_host
         ret = stun_test(s, stun_host, port, source_ip, source_port)
         resp = ret['Resp']
     else:
